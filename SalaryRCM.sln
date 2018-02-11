@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27130.2027
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryRCM", "SalaryRCM\SalaryRCM.csproj", "{C69DB4C9-C450-42E1-B625-71E510CB0510}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SalaryRCMTests", "SalaryRCMTests\SalaryRCMTests.csproj", "{6331D34B-8C47-4690-886F-21D753462859}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{C69DB4C9-C450-42E1-B625-71E510CB0510}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C69DB4C9-C450-42E1-B625-71E510CB0510}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C69DB4C9-C450-42E1-B625-71E510CB0510}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6331D34B-8C47-4690-886F-21D753462859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6331D34B-8C47-4690-886F-21D753462859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6331D34B-8C47-4690-886F-21D753462859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6331D34B-8C47-4690-886F-21D753462859}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

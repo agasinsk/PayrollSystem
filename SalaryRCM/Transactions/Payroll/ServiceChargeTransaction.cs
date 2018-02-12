@@ -5,9 +5,9 @@ namespace PayrollSystem.Transactions.Payroll
 {
     public class ServiceChargeTransaction : BaseTransaction
     {
-        private decimal amount;
-        private DateTime date;
-        private int memberId;
+        private readonly decimal amount;
+        private readonly DateTime date;
+        private readonly int memberId;
 
         public ServiceChargeTransaction(int memberId, DateTime date, decimal amount)
         {

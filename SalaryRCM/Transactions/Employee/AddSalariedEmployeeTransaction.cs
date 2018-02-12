@@ -1,5 +1,5 @@
-﻿using PayrollSystem.PaymentClassifications;
-using PayrollSystem.PaymentSchedules;
+﻿using PayrollSystem.Models.PaymentClassifications;
+using PayrollSystem.Models.PaymentSchedules;
 
 namespace PayrollSystem.Transactions.Employee
 {

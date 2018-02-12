@@ -1,6 +1,6 @@
 ﻿using System;
 using PayrollSystem.Models;
-using PayrollSystem.PaymentClassifications;
+using PayrollSystem.Models.PaymentClassifications;
 
 namespace PayrollSystem.Transactions.Payroll
 {

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrollSystem.Transactions.Employee
+namespace PayrollSystem.Transactions.Employee.Changes
 {
     public abstract class ChangeEmployeeTransaction : BaseTransaction
     {

@@ -1,14 +1,14 @@
 ﻿using System;
 using PayrollSystem.Models;
-using PayrollSystem.PaymentMethods;
+using PayrollSystem.Models.PaymentMethods;
 
 namespace PayrollSystem.Transactions.Payroll
 {
     public class TimeCardTransaction : BaseTransaction
     {
-        private DateTime date;
-        private int employeeId;
-        private int hours;
+        private readonly DateTime date;
+        private readonly int employeeId;
+        private readonly int hours;
 
         public TimeCardTransaction(DateTime date, int employeeId, int hours)
         {

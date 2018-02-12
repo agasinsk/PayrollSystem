@@ -1,8 +1,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
-using PayrollSystem.PaymentClassifications;
-using PayrollSystem.PaymentMethods;
-using PayrollSystem.PaymentSchedules;
+using PayrollSystem.Models.PaymentClassifications;
+using PayrollSystem.Models.PaymentMethods;
+using PayrollSystem.Models.PaymentSchedules;
 using PayrollSystem.Transactions.Employee;
 
 namespace PayrollSystemTests

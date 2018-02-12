@@ -1,4 +1,4 @@
-﻿namespace PayrollSystem.Transactions.Employee
+﻿namespace PayrollSystem.Transactions.Employee.Changes
 {
     public class ChangeEmployeeNameTransaction : ChangeEmployeeTransaction
     {

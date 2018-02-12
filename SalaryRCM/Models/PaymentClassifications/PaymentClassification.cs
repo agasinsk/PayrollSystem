@@ -1,6 +1,6 @@
 ﻿namespace PayrollSystem.Models.PaymentClassifications
 {
-    public class PaymentClassification
+    public abstract class PaymentClassification
     {
     }
 }

@@ -1,4 +1,3 @@
-using System;
 using PayrollSystem.Models.PaymentMethods;
 
 namespace PayrollSystem.Transactions.Employee.Changes
@@ -11,7 +10,7 @@ namespace PayrollSystem.Transactions.Employee.Changes
 
         protected override void Change(Models.Employee employee)
         {
-            throw new NotImplementedException();
+            employee.PaymentMethod = GetMethod();
         }
 
         protected abstract PaymentMethod GetMethod();

@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
 using PayrollSystem.Models.PaymentClassifications;
 using PayrollSystem.Models.PaymentMethods;
 using PayrollSystem.Models.PaymentSchedules;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Employee.Changes;
+using PayrollSystem.Transactions.Employee.Changes.Classification;
 
 namespace PayrollSystemTests
 {
@@ -70,6 +68,51 @@ namespace PayrollSystemTests
         }
 
         [TestMethod]
+        public void TestChangeDirectMethodTransaction()
+        {
+            // Arrange
+            var employeeId = 1;
+            var employeeName = "Bogdan";
+            var employeeAddress = "Address";
+            var hourlyRate = 25M;
+
+            new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
+            var bank = "Bank";
+            var account = "0000 12223 1234 1234 1234 5678";
+
+            // Act
+            new ChangeEmployeeDirectMethodTransaction(employeeId, bank, account).Execute();
+            var employee = payrollDatabase.GetEmployee(employeeId);
+
+            // Assert
+            Assert.IsNotNull(employee);
+            Assert.IsTrue(employee.PaymentMethod is DirectPaymentMethod);
+            Assert.AreEqual(bank, (employee.PaymentMethod as DirectPaymentMethod).Bank);
+            Assert.AreEqual(account, (employee.PaymentMethod as DirectPaymentMethod).Account);
+        }
+
+        [TestMethod]
+        public void TestChangeHoldMethodTransaction()
+        {
+            // Arrange
+            var employeeId = 1;
+            var employeeName = "Bogdan";
+            var employeeAddress = "Address";
+            var hourlyRate = 25M;
+
+            new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
+
+            // Act
+            new ChangeEmployeeHoldMethodTransaction(employeeId, employeeAddress).Execute();
+            var employee = payrollDatabase.GetEmployee(employeeId);
+
+            // Assert
+            Assert.IsNotNull(employee);
+            Assert.IsTrue(employee.PaymentMethod is HoldPaymentMethod);
+            Assert.AreEqual(employeeAddress, (employee.PaymentMethod as HoldPaymentMethod).Address);
+        }
+
+        [TestMethod]
         public void TestChangeHourlyClassificationTransaction()
         {
             // Arrange
@@ -90,6 +133,27 @@ namespace PayrollSystemTests
             Assert.IsTrue(employee.PaymentClassification is HourlyPaymentClassification);
             Assert.AreEqual(hourlyRate, (employee.PaymentClassification as HourlyPaymentClassification).HourlyRate);
             Assert.IsTrue(employee.PaymentSchedule is WeeklyPaymentSchedule);
+        }
+
+        [TestMethod]
+        public void TestChangeMailMethodTransaction()
+        {
+            // Arrange
+            var employeeId = 1;
+            var employeeName = "Bogdan";
+            var employeeAddress = "Address";
+            var hourlyRate = 25M;
+
+            new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
+
+            // Act
+            new ChangeEmployeeMailMethodTransaction(employeeId, employeeAddress).Execute();
+            var employee = payrollDatabase.GetEmployee(employeeId);
+
+            // Assert
+            Assert.IsNotNull(employee);
+            Assert.IsTrue(employee.PaymentMethod is MailPaymentMethod);
+            Assert.AreEqual(employeeAddress, (employee.PaymentMethod as MailPaymentMethod).Address);
         }
 
         [TestMethod]

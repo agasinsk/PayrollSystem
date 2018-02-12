@@ -21,7 +21,7 @@ namespace PayrollSystem.Transactions.Employee
         {
             var paymentClassification = GetPaymentClassification();
             var paymentSchedule = GetPaymentSchedule();
-            PaymentMethod paymentMethod = new HoldPaymentMethod();
+            PaymentMethod paymentMethod = new HoldPaymentMethod(employeeAddress);
             var employee = new Models.Employee(employeeId, employeeName, employeeAddress)
             {
                 PaymentClassification = paymentClassification,

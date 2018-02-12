@@ -1,7 +1,7 @@
 ﻿using PayrollSystem.Models.PaymentClassifications;
 using PayrollSystem.Models.PaymentSchedules;
 
-namespace PayrollSystem.Transactions.Employee.Changes
+namespace PayrollSystem.Transactions.Employee.Changes.Classification
 {
     public class ChangeEmployeeSalariedClassificationTransaction : ChangeEmployeeClassificationTransaction
     {

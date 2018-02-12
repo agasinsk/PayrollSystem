@@ -1,6 +1,6 @@
 ﻿namespace PayrollSystem.Models.PaymentSchedules
 {
-    public class PaymentSchedule
+    public abstract class PaymentSchedule
     {
     }
 }

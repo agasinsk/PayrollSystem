@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using SalaryRCM.Models;
+using PayrollSystem.Models;
 
-namespace SalaryRCM.PaymentClassifications
+namespace PayrollSystem.PaymentClassifications
 {
     public class CommisionedPaymentClassification : PaymentClassification
     {

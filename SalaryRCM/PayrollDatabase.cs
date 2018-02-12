@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using SalaryRCM.Models;
+using PayrollSystem.Models;
 
-namespace SalaryRCM
+namespace PayrollSystem
 {
     public class PayrollDatabase
     {

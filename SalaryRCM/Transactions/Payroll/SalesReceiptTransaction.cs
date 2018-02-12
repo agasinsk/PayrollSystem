@@ -1,8 +1,8 @@
 ﻿using System;
-using SalaryRCM.Models;
-using SalaryRCM.PaymentClassifications;
+using PayrollSystem.Models;
+using PayrollSystem.PaymentClassifications;
 
-namespace SalaryRCM.Transactions.Payroll
+namespace PayrollSystem.Transactions.Payroll
 {
     public class SalesReceiptTransaction : BaseTransaction
     {

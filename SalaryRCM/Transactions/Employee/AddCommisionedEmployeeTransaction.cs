@@ -1,7 +1,7 @@
-﻿using SalaryRCM.PaymentClassifications;
-using SalaryRCM.PaymentSchedules;
+﻿using PayrollSystem.PaymentClassifications;
+using PayrollSystem.PaymentSchedules;
 
-namespace SalaryRCM.Transactions.Employee
+namespace PayrollSystem.Transactions.Employee
 {
     public class AddCommisionedEmployeeTransaction : AddEmployeeTransaction
     {

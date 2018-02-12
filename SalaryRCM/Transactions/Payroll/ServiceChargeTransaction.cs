@@ -1,7 +1,7 @@
 ﻿using System;
-using SalaryRCM.Models;
+using PayrollSystem.Models;
 
-namespace SalaryRCM.Transactions.Payroll
+namespace PayrollSystem.Transactions.Payroll
 {
     public class ServiceChargeTransaction : BaseTransaction
     {

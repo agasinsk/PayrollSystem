@@ -1,4 +1,4 @@
-﻿namespace SalaryRCM.Transactions
+﻿namespace PayrollSystem.Transactions
 {
     public abstract class BaseTransaction : ITransaction
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using SalaryRCM.Models;
-using SalaryRCM.PaymentClassifications;
+using PayrollSystem.Models;
+using PayrollSystem.PaymentClassifications;
 
-namespace SalaryRCM.PaymentMethods
+namespace PayrollSystem.PaymentMethods
 {
     public class HourlyPaymentClassification : PaymentClassification
     {

@@ -1,4 +1,4 @@
-﻿namespace SalaryRCM.PaymentMethods
+﻿namespace PayrollSystem.PaymentMethods
 {
     public class HoldPaymentMethod : PaymentMethod
     {

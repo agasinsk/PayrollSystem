@@ -1,4 +1,4 @@
-﻿namespace SalaryRCM.PaymentSchedules
+﻿namespace PayrollSystem.PaymentSchedules
 {
     public class PaymentSchedule
     {

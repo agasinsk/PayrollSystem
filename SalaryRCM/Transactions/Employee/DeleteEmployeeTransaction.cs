@@ -1,4 +1,4 @@
-﻿namespace SalaryRCM.Transactions.Employee
+﻿namespace PayrollSystem.Transactions.Employee
 {
     public class DeleteEmployeeTransaction : BaseTransaction
     {

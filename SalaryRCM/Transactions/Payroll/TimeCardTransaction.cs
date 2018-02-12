@@ -1,8 +1,8 @@
 ﻿using System;
-using SalaryRCM.Models;
-using SalaryRCM.PaymentMethods;
+using PayrollSystem.Models;
+using PayrollSystem.PaymentMethods;
 
-namespace SalaryRCM.Transactions.Payroll
+namespace PayrollSystem.Transactions.Payroll
 {
     public class TimeCardTransaction : BaseTransaction
     {

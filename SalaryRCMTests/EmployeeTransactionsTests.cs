@@ -1,11 +1,11 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using SalaryRCM;
-using SalaryRCM.PaymentClassifications;
-using SalaryRCM.PaymentMethods;
-using SalaryRCM.PaymentSchedules;
-using SalaryRCM.Transactions.Employee;
+using PayrollSystem;
+using PayrollSystem.PaymentClassifications;
+using PayrollSystem.PaymentMethods;
+using PayrollSystem.PaymentSchedules;
+using PayrollSystem.Transactions.Employee;
 
-namespace SalaryRCMTests
+namespace PayrollSystemTests
 {
     [TestClass]
     public class EmployeeTransactionsTests

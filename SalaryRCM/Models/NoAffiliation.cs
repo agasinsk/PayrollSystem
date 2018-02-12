@@ -1,4 +1,4 @@
-﻿namespace SalaryRCM.Models
+﻿namespace PayrollSystem.Models
 {
     public class NoAffiliation : Affiliation
     {

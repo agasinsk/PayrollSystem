@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SalaryRCM.Models
+namespace PayrollSystem.Models
 {
     public class TimeCard
     {

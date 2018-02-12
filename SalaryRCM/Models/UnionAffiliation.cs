@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace SalaryRCM.Models
+namespace PayrollSystem.Models
 {
     public class UnionAffiliation : Affiliation
     {

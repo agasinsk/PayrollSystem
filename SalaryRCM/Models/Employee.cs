@@ -1,8 +1,8 @@
-﻿using SalaryRCM.PaymentClassifications;
-using SalaryRCM.PaymentMethods;
-using SalaryRCM.PaymentSchedules;
+﻿using PayrollSystem.PaymentClassifications;
+using PayrollSystem.PaymentMethods;
+using PayrollSystem.PaymentSchedules;
 
-namespace SalaryRCM.Models
+namespace PayrollSystem.Models
 {
     public class Employee
     {

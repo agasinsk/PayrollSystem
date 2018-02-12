@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using PayrollSystem.Models.PaymentClassifications;
+using System.Linq;
 
-namespace PayrollSystem.Models.PaymentMethods
+namespace PayrollSystem.Models.PaymentClassifications
 {
     public class HourlyPaymentClassification : PaymentClassification
     {
@@ -18,6 +18,12 @@ namespace PayrollSystem.Models.PaymentMethods
         public void AddTimeCard(TimeCard timeCard)
         {
             timeCards.Add(timeCard);
+        }
+
+        public override decimal CalculatePay(DateTime paycheckDate)
+        {
+            var hours = timeCards.Find(tc => tc.Date == paycheckDate).Hours;
+            return HourlyRate * hours;
         }
 
         public TimeCard GetTimeCard(DateTime date)

@@ -1,4 +1,6 @@
-﻿namespace PayrollSystem.Models.PaymentClassifications
+﻿using System;
+
+namespace PayrollSystem.Models.PaymentClassifications
 {
     public class SalariedPaymentClassification : PaymentClassification
     {
@@ -7,6 +9,11 @@
         public SalariedPaymentClassification(decimal salary)
         {
             Salary = salary;
+        }
+
+        public override decimal CalculatePay(DateTime paycheckDate)
+        {
+            return Salary;
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using PayrollSystem.Models;
+using PayrollSystem.Models.PaymentClassifications;
 using PayrollSystem.Models.PaymentMethods;
 
 namespace PayrollSystem.Transactions.Payroll

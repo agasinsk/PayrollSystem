@@ -1,4 +1,5 @@
-﻿using PayrollSystem.Models.PaymentClassifications;
+﻿using System;
+using PayrollSystem.Models.PaymentClassifications;
 using PayrollSystem.Models.PaymentMethods;
 using PayrollSystem.Models.PaymentSchedules;
 
@@ -25,6 +26,20 @@ namespace PayrollSystem.Models
             Id = id;
             Name = name;
             Address = address;
+            Affiliation = new NoAffiliation();
+        }
+
+        public bool IsPayDay(DateTime date)
+        {
+            return PaymentSchedule.IsPayDay(date);
+        }
+
+        public void PayDay(Paycheck paycheck)
+        {
+            paycheck.GrossPay = PaymentClassification.CalculatePay(paycheck.Date);
+            paycheck.Deductions = Affiliation.CalculatePay(paycheck.Date);
+
+            PaymentMethod.Pay(paycheck);
         }
     }
 }

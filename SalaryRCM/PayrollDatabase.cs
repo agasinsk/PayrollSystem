@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using PayrollSystem.Models;
 
 namespace PayrollSystem
@@ -40,6 +41,16 @@ namespace PayrollSystem
         {
             unionMembers.Remove(memberId, out var employee);
             return employee;
+        }
+
+        public IEnumerable<Employee> GetAllEmployees()
+        {
+            return employees.Values;
+        }
+
+        public IEnumerable<Employee> GetAllUnionMembers()
+        {
+            return unionMembers.Values;
         }
 
         public Employee GetEmployee(int employeeId)

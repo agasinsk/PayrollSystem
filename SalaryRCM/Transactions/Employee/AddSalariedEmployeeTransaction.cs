@@ -3,7 +3,7 @@ using PayrollSystem.Models.PaymentSchedules;
 
 namespace PayrollSystem.Transactions.Employee
 {
-    public partial class AddSalariedEmployeeTransaction : AddEmployeeTransaction
+    public class AddSalariedEmployeeTransaction : AddEmployeeTransaction
     {
         private readonly decimal salary;
 

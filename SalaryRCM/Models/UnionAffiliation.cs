@@ -21,6 +21,11 @@ namespace PayrollSystem.Models
             serviceCharges.Add(serviceCharge);
         }
 
+        public override decimal CalculatePay(DateTime paycheckDate)
+        {
+            throw new NotImplementedException();
+        }
+
         public ServiceCharge GetServiceCharge(DateTime date)
         {
             return serviceCharges.Find(sc => sc.Date == date);

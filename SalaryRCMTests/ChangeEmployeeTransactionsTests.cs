@@ -7,6 +7,7 @@ using PayrollSystem.PaymentClassifications;
 using PayrollSystem.PaymentMethods;
 using PayrollSystem.PaymentSchedules;
 using PayrollSystem.Transactions.Employee;
+using PayrollSystem.Transactions.Employee.Changes;
 
 namespace PayrollSystemTests
 {
@@ -19,6 +20,28 @@ namespace PayrollSystemTests
         public void SetUp()
         {
             payrollDatabase = PayrollDatabase.GetInstance();
+        }
+
+        [TestMethod]
+        public void TestChangeAddressTransaction()
+        {
+            // Arrange
+            var employeeId = 1;
+            var employeeName = "Bogdan";
+            var employeeAddress = "Address";
+            var hourlyRate = 2500M;
+
+            new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
+
+            const string newAddress = "new York";
+
+            // Act
+            new ChangeEmployeeAddressTransaction(employeeId, newAddress).Execute();
+            var employee = payrollDatabase.GetEmployee(employeeId);
+
+            // Assert
+            Assert.IsNotNull(employee);
+            Assert.AreEqual(newAddress, employee.Address);
         }
 
         [TestMethod]

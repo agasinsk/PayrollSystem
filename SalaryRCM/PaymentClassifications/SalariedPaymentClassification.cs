@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace SalaryRCM
+﻿namespace SalaryRCM.PaymentClassifications
 {
     public class SalariedPaymentClassification : PaymentClassification
     {

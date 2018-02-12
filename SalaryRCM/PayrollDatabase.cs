@@ -1,6 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using SalaryRCM.Models;
 
 namespace SalaryRCM
 {
@@ -8,6 +7,7 @@ namespace SalaryRCM
     {
         private static PayrollDatabase theInstance;
         private readonly IDictionary<int, Employee> employees = new Dictionary<int, Employee>();
+        private readonly IDictionary<int, Employee> unionMembers = new Dictionary<int, Employee>();
 
         public static PayrollDatabase GetInstance()
         {
@@ -19,14 +19,51 @@ namespace SalaryRCM
             employees[employeeId] = employee;
         }
 
+        public void AddUnionMember(int memberId, Employee employee)
+        {
+            unionMembers[memberId] = employee;
+        }
+
         public void Clear()
         {
             employees.Clear();
+            unionMembers.Clear();
+        }
+
+        public Employee DeleteEmployee(int employeeId)
+        {
+            employees.Remove(employeeId, out var employee);
+            return employee;
+        }
+
+        public Employee DeleteUnionMember(int memberId)
+        {
+            unionMembers.Remove(memberId, out var employee);
+            return employee;
         }
 
         public Employee GetEmployee(int employeeId)
         {
-            return employees[employeeId];
+            try
+            {
+                return employees[employeeId];
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
+        }
+
+        public Employee GetUnionMember(int memberId)
+        {
+            try
+            {
+                return unionMembers[memberId];
+            }
+            catch (KeyNotFoundException)
+            {
+                return null;
+            }
         }
     }
 }

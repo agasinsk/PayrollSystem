@@ -1,4 +1,7 @@
-﻿namespace SalaryRCM.Transactions
+﻿using SalaryRCM.PaymentClassifications;
+using SalaryRCM.PaymentSchedules;
+
+namespace SalaryRCM.Transactions.Employee
 {
     public partial class AddSalariedEmployeeTransaction : AddEmployeeTransaction
     {

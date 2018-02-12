@@ -1,8 +1,14 @@
-﻿namespace SalaryRCM
+﻿using SalaryRCM.PaymentClassifications;
+using SalaryRCM.PaymentMethods;
+using SalaryRCM.PaymentSchedules;
+
+namespace SalaryRCM.Models
 {
     public class Employee
     {
         public string Address { get; set; }
+
+        public Affiliation Affiliation { get; set; }
 
         public int Id { get; set; }
 

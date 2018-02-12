@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using SalaryRCM.PaymentClassifications;
+using SalaryRCM.PaymentMethods;
+using SalaryRCM.PaymentSchedules;
 
-namespace SalaryRCM.Transactions
+namespace SalaryRCM.Transactions.Employee
 {
-    public abstract partial class AddEmployeeTransaction : BaseTransaction
+    public abstract class AddEmployeeTransaction : BaseTransaction
     {
         private readonly string employeeAddress;
         private readonly int employeeId;
@@ -22,7 +22,7 @@ namespace SalaryRCM.Transactions
             var paymentClassification = GetPaymentClassification();
             var paymentSchedule = GetPaymentSchedule();
             PaymentMethod paymentMethod = new HoldPaymentMethod();
-            var employee = new Employee(employeeId, employeeName, employeeAddress)
+            var employee = new Models.Employee(employeeId, employeeName, employeeAddress)
             {
                 PaymentClassification = paymentClassification,
                 PaymentSchedule = paymentSchedule,

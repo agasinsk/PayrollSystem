@@ -31,12 +31,13 @@ namespace PayrollSystemTests
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
             var employee = payrollDatabase.GetEmployee(employeeId);
-            var chargeRate = 12.5M;
-            var unionAffiliation = new UnionAffiliation(chargeRate);
+
+            var dues = 12.5M;
+            var memberId = 86;
+            var unionAffiliation = new UnionAffiliation(memberId, dues);
             employee.Affiliation = unionAffiliation;
 
-            var memberId = 86;
-            payrollDatabase.AddUnionMember(86, employee);
+            payrollDatabase.AddUnionMember(memberId, employee);
 
             var date = DateTime.Parse("2001-10-31");
             var amount = 12.76M;

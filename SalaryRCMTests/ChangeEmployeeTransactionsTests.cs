@@ -1,11 +1,14 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
+using PayrollSystem.Models;
 using PayrollSystem.Models.PaymentClassifications;
 using PayrollSystem.Models.PaymentMethods;
 using PayrollSystem.Models.PaymentSchedules;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Employee.Changes;
+using PayrollSystem.Transactions.Employee.Changes.Affiliation;
 using PayrollSystem.Transactions.Employee.Changes.Classification;
+using PayrollSystem.Transactions.Employee.Changes.Method;
 
 namespace PayrollSystemTests
 {
@@ -157,6 +160,32 @@ namespace PayrollSystemTests
         }
 
         [TestMethod]
+        public void TestChangeMemberAffiliationTransaction()
+        {
+            // Arrange
+            var employeeId = 1;
+            var employeeName = "Bogdan";
+            var employeeAddress = "Address";
+            var hourlyRate = 25M;
+
+            new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
+            var memberId = 24;
+            var dues = 92.42M;
+
+            // Act
+            new ChangeEmployeeUnionAffiliationTransaction(employeeId, memberId, dues).Execute();
+            var employee = payrollDatabase.GetEmployee(employeeId);
+            var unionMember = payrollDatabase.GetUnionMember(memberId);
+
+            // Assert
+            Assert.IsNotNull(employee);
+            Assert.IsNotNull(unionMember);
+            Assert.AreEqual(unionMember, employee);
+            Assert.IsTrue(employee.Affiliation is UnionAffiliation);
+            Assert.AreEqual(dues, (employee.Affiliation as UnionAffiliation).Dues);
+        }
+
+        [TestMethod]
         public void TestChangeNameTransaction()
         {
             // Arrange
@@ -199,6 +228,26 @@ namespace PayrollSystemTests
             Assert.IsTrue(employee.PaymentClassification is SalariedPaymentClassification);
             Assert.AreEqual(salary, (employee.PaymentClassification as SalariedPaymentClassification).Salary);
             Assert.IsTrue(employee.PaymentSchedule is MonthlyPaymentSchedule);
+        }
+
+        [TestMethod]
+        public void TestChangeUnaffiliatedTransaction()
+        {
+            // Arrange
+            var employeeId = 1;
+            var employeeName = "Bogdan";
+            var employeeAddress = "Address";
+            var hourlyRate = 25M;
+
+            new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
+
+            // Act
+            new ChangeEmployeeUnaffiliatedTransaction(employeeId).Execute();
+            var employee = payrollDatabase.GetEmployee(employeeId);
+
+            // Assert
+            Assert.IsNotNull(employee);
+            Assert.IsTrue(employee.Affiliation is NoAffiliation);
         }
     }
 }

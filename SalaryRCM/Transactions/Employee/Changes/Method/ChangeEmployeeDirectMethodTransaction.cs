@@ -1,6 +1,6 @@
 using PayrollSystem.Models.PaymentMethods;
 
-namespace PayrollSystem.Transactions.Employee.Changes
+namespace PayrollSystem.Transactions.Employee.Changes.Method
 {
     public class ChangeEmployeeDirectMethodTransaction : ChangeEmployeeMethodTransaction
     {

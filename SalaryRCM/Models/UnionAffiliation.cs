@@ -5,23 +5,25 @@ namespace PayrollSystem.Models
 {
     public class UnionAffiliation : Affiliation
     {
-        private readonly List<ServiceCharge> dues;
-        private decimal chargeRate;
+        private readonly List<ServiceCharge> serviceCharges;
+        public decimal Dues { get; }
+        public int MemberId { get; }
 
-        public UnionAffiliation(decimal chargeRate)
+        public UnionAffiliation(int memberId, decimal dues)
         {
-            this.chargeRate = chargeRate;
-            dues = new List<ServiceCharge>();
+            Dues = dues;
+            MemberId = memberId;
+            serviceCharges = new List<ServiceCharge>();
         }
 
         public void AddServiceChange(ServiceCharge serviceCharge)
         {
-            dues.Add(serviceCharge);
+            serviceCharges.Add(serviceCharge);
         }
 
         public ServiceCharge GetServiceCharge(DateTime date)
         {
-            return dues.Find(sc => sc.Date == date);
+            return serviceCharges.Find(sc => sc.Date == date);
         }
     }
 }

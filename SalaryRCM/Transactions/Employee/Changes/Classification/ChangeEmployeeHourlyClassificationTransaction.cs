@@ -6,9 +6,9 @@ namespace PayrollSystem.Transactions.Employee.Changes.Classification
 {
     public class ChangeEmployeeHourlyClassificationTransaction : ChangeEmployeeClassificationTransaction
     {
-        private readonly decimal hourlyRate;
+        private readonly double hourlyRate;
 
-        public ChangeEmployeeHourlyClassificationTransaction(int employeeId, decimal hourlyRate) : base(employeeId)
+        public ChangeEmployeeHourlyClassificationTransaction(int employeeId, double hourlyRate) : base(employeeId)
         {
             this.hourlyRate = hourlyRate;
         }

@@ -9,9 +9,9 @@ namespace PayrollSystem.Transactions.Payroll
     {
         private readonly DateTime date;
         private readonly int employeeId;
-        private readonly int hours;
+        private readonly double hours;
 
-        public TimeCardTransaction(DateTime date, int employeeId, int hours)
+        public TimeCardTransaction(int employeeId, DateTime date, double hours)
         {
             this.date = date;
             this.employeeId = employeeId;

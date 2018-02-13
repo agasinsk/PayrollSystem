@@ -4,7 +4,7 @@ namespace PayrollSystem.Models
 {
     public class NoAffiliation : Affiliation
     {
-        public override decimal CalculatePay(DateTime paycheckDate)
+        public override double CalculatePay(DateTime paycheckDate)
         {
             return 0;
         }

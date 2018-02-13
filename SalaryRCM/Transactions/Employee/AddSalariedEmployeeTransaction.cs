@@ -5,9 +5,9 @@ namespace PayrollSystem.Transactions.Employee
 {
     public class AddSalariedEmployeeTransaction : AddEmployeeTransaction
     {
-        private readonly decimal salary;
+        private readonly double salary;
 
-        public AddSalariedEmployeeTransaction(int employeeId, string employeeName, string employeeAddress, decimal salary) : base(employeeId, employeeName, employeeAddress)
+        public AddSalariedEmployeeTransaction(int employeeId, string employeeName, string employeeAddress, double salary) : base(employeeId, employeeName, employeeAddress)
         {
             this.salary = salary;
         }

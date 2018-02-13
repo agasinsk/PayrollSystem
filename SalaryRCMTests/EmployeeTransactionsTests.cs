@@ -1,3 +1,4 @@
+using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
 using PayrollSystem.Models.PaymentClassifications;
@@ -25,8 +26,8 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var salary = 2500M;
-            var commisionRate = 100M;
+            var salary = 2500;
+            var commisionRate = 100;
 
             // Act
             new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, commisionRate).Execute();
@@ -48,7 +49,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 2500M;
+            var hourlyRate = 2500;
 
             // Act
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
@@ -69,7 +70,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var salary = 2500M;
+            var salary = 2500;
 
             // Act
             new AddSalariedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary).Execute();
@@ -90,8 +91,8 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var salary = 2500M;
-            var commisionRate = 100M;
+            var salary = 2500;
+            var commisionRate = 100;
 
             // Act
             new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, commisionRate).Execute();

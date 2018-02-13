@@ -30,7 +30,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 2500M;
+            var hourlyRate = 2500;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
 
@@ -52,11 +52,11 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 25M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
-            const decimal salary = 2500M;
-            const decimal commisionRate = 15.5M;
+            var salary = 2500;
+            var commisionRate = 15.5;
 
             // Act
             new ChangeEmployeeCommisionedClassificationTransaction(employeeId, salary, commisionRate).Execute();
@@ -77,7 +77,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 25M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
             var bank = "Bank";
@@ -101,7 +101,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 25M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
 
@@ -122,10 +122,10 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var salary = 2500M;
+            var salary = 2500;
 
-            new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, 12.5M).Execute();
-            const decimal hourlyRate = 27.52M;
+            new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, 12.5).Execute();
+            var hourlyRate = 27.52;
 
             // Act
             new ChangeEmployeeHourlyClassificationTransaction(employeeId, hourlyRate).Execute();
@@ -145,7 +145,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 25M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
 
@@ -166,7 +166,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 25M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
             var memberId = 24;
@@ -192,7 +192,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 2500M;
+            var hourlyRate = 2500;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
 
@@ -214,10 +214,10 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 25M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
-            const decimal salary = 500M;
+            var salary = 500;
 
             // Act
             new ChangeEmployeeSalariedClassificationTransaction(employeeId, salary).Execute();
@@ -237,7 +237,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 25M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
 

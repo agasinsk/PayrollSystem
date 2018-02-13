@@ -27,7 +27,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 2500M;
+            var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
             var employee = payrollDatabase.GetEmployee(employeeId);
@@ -59,13 +59,13 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var salary = 2500M;
-            var commisionRate = 100M;
+            var salary = 2500;
+            var commisionRate = 100;
 
             new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, commisionRate).Execute();
 
             var date = DateTime.Parse("2001-10-31");
-            var amount = 256M;
+            var amount = 256;
 
             // Act
             new SalesReceiptTransaction(date, amount, employeeId).Execute();
@@ -86,7 +86,7 @@ namespace PayrollSystemTests
             var employeeId = 1;
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
-            var hourlyRate = 2500M;
+            var hourlyRate = 25;
             var date = DateTime.Parse("2001-10-31");
             const int hours = 8;
 
@@ -94,7 +94,7 @@ namespace PayrollSystemTests
 
             // Act
 
-            new TimeCardTransaction(date, employeeId, hours).Execute();
+            new TimeCardTransaction(employeeId, date, hours).Execute();
             var employee = payrollDatabase.GetEmployee(employeeId);
             var timeCard = (employee.PaymentClassification as HourlyPaymentClassification)?.GetTimeCard(date);
 

@@ -5,10 +5,10 @@ namespace PayrollSystem.Transactions.Employee
 {
     public class AddCommisionedEmployeeTransaction : AddEmployeeTransaction
     {
-        private readonly decimal commisionRate;
-        private readonly decimal salary;
+        private readonly double commisionRate;
+        private readonly double salary;
 
-        public AddCommisionedEmployeeTransaction(int employeeId, string employeeName, string employeeAddress, decimal salary, decimal commisionRate) : base(employeeId, employeeName, employeeAddress)
+        public AddCommisionedEmployeeTransaction(int employeeId, string employeeName, string employeeAddress, double salary, double commisionRate) : base(employeeId, employeeName, employeeAddress)
         {
             this.salary = salary;
             this.commisionRate = commisionRate;

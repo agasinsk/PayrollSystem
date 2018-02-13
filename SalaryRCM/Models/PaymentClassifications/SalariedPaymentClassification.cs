@@ -4,14 +4,14 @@ namespace PayrollSystem.Models.PaymentClassifications
 {
     public class SalariedPaymentClassification : PaymentClassification
     {
-        public decimal Salary { get; set; }
+        public double Salary { get; set; }
 
-        public SalariedPaymentClassification(decimal salary)
+        public SalariedPaymentClassification(double salary)
         {
             Salary = salary;
         }
 
-        public override decimal CalculatePay(DateTime paycheckDate)
+        public override double CalculatePay(DateTime paycheckDate)
         {
             return Salary;
         }

@@ -7,10 +7,10 @@ namespace PayrollSystem.Models.PaymentClassifications
     public class CommisionedPaymentClassification : PaymentClassification
     {
         private readonly List<SalesReceipt> salesReceipts;
-        public decimal CommisionRate { get; }
-        public decimal Salary { get; }
+        public double CommisionRate { get; }
+        public double Salary { get; }
 
-        public CommisionedPaymentClassification(decimal salary, decimal commisionRate)
+        public CommisionedPaymentClassification(double salary, double commisionRate)
         {
             Salary = salary;
             CommisionRate = commisionRate;
@@ -22,7 +22,7 @@ namespace PayrollSystem.Models.PaymentClassifications
             salesReceipts.Add(salesReceipt);
         }
 
-        public override decimal CalculatePay(DateTime paycheckDate)
+        public override double CalculatePay(DateTime paycheckDate)
         {
             var salesAmount = salesReceipts.Where(sr => sr.Date <= paycheckDate).Sum(sr => sr.Amount);
             return Salary + salesAmount * CommisionRate;

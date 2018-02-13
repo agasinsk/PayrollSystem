@@ -5,9 +5,9 @@ namespace PayrollSystem.Transactions.Employee.Changes.Classification
 {
     public class ChangeEmployeeSalariedClassificationTransaction : ChangeEmployeeClassificationTransaction
     {
-        private readonly decimal salary;
+        private readonly double salary;
 
-        public ChangeEmployeeSalariedClassificationTransaction(int employeeId, decimal salary) : base(employeeId)
+        public ChangeEmployeeSalariedClassificationTransaction(int employeeId, double salary) : base(employeeId)
         {
             this.salary = salary;
         }

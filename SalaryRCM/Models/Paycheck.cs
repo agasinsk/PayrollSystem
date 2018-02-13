@@ -7,13 +7,13 @@ namespace PayrollSystem.Models
     {
         public DateTime Date { get; set; }
 
-        public decimal Deductions { get; set; }
+        public double Deductions { get; set; }
 
         public PaymentMethodType Disposition { get; set; }
 
-        public decimal GrossPay { get; set; }
+        public double GrossPay { get; set; }
 
-        public decimal NetPay => GrossPay - Deductions;
+        public double NetPay => GrossPay - Deductions;
 
         public Paycheck(DateTime date)
         {

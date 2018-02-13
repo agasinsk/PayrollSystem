@@ -6,11 +6,11 @@ namespace PayrollSystem.Transactions.Payroll
 {
     public class SalesReceiptTransaction : BaseTransaction
     {
-        private readonly decimal amount;
+        private readonly double amount;
         private readonly DateTime date;
         private readonly int employeeId;
 
-        public SalesReceiptTransaction(DateTime date, decimal amount, int employeeId)
+        public SalesReceiptTransaction(DateTime date, double amount, int employeeId)
         {
             this.date = date;
             this.amount = amount;

@@ -21,7 +21,7 @@ namespace PayrollSystem.Models
             serviceCharges.Add(serviceCharge);
         }
 
-        public override decimal CalculatePay(DateTime paycheckDate)
+        public override double CalculatePay(DateTime paycheckDate)
         {
             throw new NotImplementedException();
         }

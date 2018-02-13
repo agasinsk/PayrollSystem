@@ -6,9 +6,9 @@ namespace PayrollSystem.Transactions.Employee
 {
     public class AddHourlyEmployeeTransaction : AddEmployeeTransaction
     {
-        private readonly decimal hourlyRate;
+        private readonly double hourlyRate;
 
-        public AddHourlyEmployeeTransaction(int employeeId, string employeeName, string employeeAddress, decimal hourlyRate) : base(employeeId, employeeName, employeeAddress)
+        public AddHourlyEmployeeTransaction(int employeeId, string employeeName, string employeeAddress, double hourlyRate) : base(employeeId, employeeName, employeeAddress)
         {
             this.hourlyRate = hourlyRate;
         }

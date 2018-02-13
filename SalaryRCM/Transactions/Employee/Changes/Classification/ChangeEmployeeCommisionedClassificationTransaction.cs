@@ -5,10 +5,10 @@ namespace PayrollSystem.Transactions.Employee.Changes.Classification
 {
     public class ChangeEmployeeCommisionedClassificationTransaction : ChangeEmployeeClassificationTransaction
     {
-        private readonly decimal commisionRate;
-        private readonly decimal salary;
+        private readonly double commisionRate;
+        private readonly double salary;
 
-        public ChangeEmployeeCommisionedClassificationTransaction(int employeeId, decimal salary, decimal commisionRate) : base(employeeId)
+        public ChangeEmployeeCommisionedClassificationTransaction(int employeeId, double salary, double commisionRate) : base(employeeId)
         {
             this.commisionRate = commisionRate;
             this.salary = salary;

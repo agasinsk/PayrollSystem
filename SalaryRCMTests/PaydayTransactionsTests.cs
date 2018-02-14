@@ -20,6 +20,31 @@ namespace PayrollSystemTests
         }
 
         [TestMethod]
+        public void TestPaySingleCommisionedEmployeeNoSalesReceipts()
+        {
+            // Arrange
+            var employeeId = 1;
+            var commisionRate = 0.25;
+            var salary = 2400;
+            new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
+
+            var fridayDate = DateTime.Parse("2018-02-16");
+            var paydayTransaction = new PaydayTransaction(fridayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+
+            // Assert
+            Assert.IsNotNull(paycheck);
+            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(salary, paycheck.GrossPay);
+            Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
+            Assert.AreEqual(0, paycheck.Deductions);
+            Assert.AreEqual(salary, paycheck.NetPay);
+        }
+
+        [TestMethod]
         public void TestPaySingleCommisionedEmployeeOneSalesReceipt()
         {
             // Arrange
@@ -71,6 +96,74 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNull(paycheck);
+        }
+
+        [TestMethod]
+        public void TestPaySingleCommisionedEmployeeTwoSalesReceipts()
+        {
+            // Arrange
+            var employeeId = 1;
+            var commisionRate = 0.25;
+            var salary = 2400;
+            new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
+
+            var payPeriodDate = DateTime.Parse("2018-02-13");
+            var salesAmount = 200;
+            new SalesReceiptTransaction(employeeId, payPeriodDate, salesAmount).Execute();
+
+            var payPeriodDate2 = DateTime.Parse("2018-02-12");
+            var salesAmount1 = 150;
+            new SalesReceiptTransaction(employeeId, payPeriodDate2, salesAmount1).Execute();
+
+            var fridayDate = DateTime.Parse("2018-02-16");
+            var paydayTransaction = new PaydayTransaction(fridayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+            var expectedPay = salary + salesAmount * commisionRate + salesAmount1 * commisionRate;
+
+            // Assert
+            Assert.IsNotNull(paycheck);
+            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(expectedPay, paycheck.GrossPay);
+            Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
+            Assert.AreEqual(0, paycheck.Deductions);
+            Assert.AreEqual(expectedPay, paycheck.NetPay);
+        }
+
+        [TestMethod]
+        public void TestPaySingleCommisionedEmployeeWithSalesReceiptsSpanningTwoPayPeriods()
+        {
+            // Arrange
+            var employeeId = 1;
+            var commisionRate = 0.25;
+            var salary = 2400;
+            new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
+
+            var date = DateTime.Parse("2018-02-13");
+            var salesAmount = 200;
+            new SalesReceiptTransaction(employeeId, date, salesAmount).Execute();
+
+            var lastPayPeriodDate = date.Subtract(TimeSpan.FromDays(14));
+            var salesAmount1 = 150;
+            new SalesReceiptTransaction(employeeId, lastPayPeriodDate, salesAmount1).Execute();
+
+            var fridayDate = DateTime.Parse("2018-02-16");
+            var paydayTransaction = new PaydayTransaction(fridayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+            var expectedPay = salary + salesAmount * commisionRate;
+
+            // Assert
+            Assert.IsNotNull(paycheck);
+            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(expectedPay, paycheck.GrossPay);
+            Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
+            Assert.AreEqual(0, paycheck.Deductions);
+            Assert.AreEqual(expectedPay, paycheck.NetPay);
         }
 
         [TestMethod]

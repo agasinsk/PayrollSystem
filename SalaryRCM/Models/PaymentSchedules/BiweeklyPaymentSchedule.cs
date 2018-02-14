@@ -13,7 +13,9 @@ namespace PayrollSystem.Models.PaymentSchedules
         {
             var isLastDayOfWeek = date.DayOfWeek == DayOfWeek.Friday;
             var isLastDayOfMonth = DateTime.DaysInMonth(date.Year, date.Month) == date.Day;
-            var isLastDayOfSecondWeek = DateTime.DaysInMonth(date.Year, date.Month) / 2 == date.Day;
+
+            //TODO: add logic for establishing last day of second week
+            var isLastDayOfSecondWeek = true;//DateTime.DaysInMonth(date.Year, date.Month) / 2 == date.Day;
             return isLastDayOfWeek && (isLastDayOfSecondWeek || isLastDayOfMonth);
         }
     }

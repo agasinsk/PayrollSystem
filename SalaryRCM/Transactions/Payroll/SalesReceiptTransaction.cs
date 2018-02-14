@@ -10,7 +10,7 @@ namespace PayrollSystem.Transactions.Payroll
         private readonly DateTime date;
         private readonly int employeeId;
 
-        public SalesReceiptTransaction(DateTime date, double amount, int employeeId)
+        public SalesReceiptTransaction(int employeeId, DateTime date, double amount)
         {
             this.date = date;
             this.amount = amount;
@@ -28,7 +28,7 @@ namespace PayrollSystem.Transactions.Payroll
             if (!(paymentClassification is CommisionedPaymentClassification))
             {
                 throw new ApplicationException(
-                    $"Employye of id {employeeId} does not work in hourly payment classification!");
+                    $"Employye of id {employeeId} does not work in commisioned payment classification!");
             }
             var salesReceipt = new SalesReceipt { Amount = amount, Date = date };
 

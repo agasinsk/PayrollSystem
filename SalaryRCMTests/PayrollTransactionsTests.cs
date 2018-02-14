@@ -60,7 +60,7 @@ namespace PayrollSystemTests
             var employeeName = "Bogdan";
             var employeeAddress = "Address";
             var salary = 2500;
-            var commisionRate = 100;
+            var commisionRate = 0.1;
 
             new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, commisionRate).Execute();
 
@@ -68,7 +68,7 @@ namespace PayrollSystemTests
             var amount = 256;
 
             // Act
-            new SalesReceiptTransaction(date, amount, employeeId).Execute();
+            new SalesReceiptTransaction(employeeId, date, amount).Execute();
             var employee = payrollDatabase.GetEmployee(employeeId);
             var salesReceipt = (employee.PaymentClassification as CommisionedPaymentClassification)?.GetSalesReceipt(date);
 

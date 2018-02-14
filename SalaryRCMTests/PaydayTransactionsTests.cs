@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
-using PayrollSystem.Models;
-using PayrollSystem.Models.PaymentClassifications;
 using PayrollSystem.Models.PaymentMethods;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Payday;
@@ -21,6 +17,60 @@ namespace PayrollSystemTests
         public void SetUp()
         {
             payrollDatabase = PayrollDatabase.GetInstance();
+        }
+
+        [TestMethod]
+        public void TestPaySingleCommisionedEmployeeOneSalesReceipt()
+        {
+            // Arrange
+            var employeeId = 1;
+            var commisionRate = 0.25;
+            var salary = 2400;
+            new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
+
+            var payPeriodDate = DateTime.Parse("2018-02-13");
+            var salesAmount = 200;
+            new SalesReceiptTransaction(employeeId, payPeriodDate, salesAmount).Execute();
+
+            var fridayDate = DateTime.Parse("2018-02-16");
+            var paydayTransaction = new PaydayTransaction(fridayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+            var expectedPay = salary + salesAmount * commisionRate;
+
+            // Assert
+            Assert.IsNotNull(paycheck);
+            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(expectedPay, paycheck.GrossPay);
+            Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
+            Assert.AreEqual(0, paycheck.Deductions);
+            Assert.AreEqual(expectedPay, paycheck.NetPay);
+        }
+
+        [TestMethod]
+        public void TestPaySingleCommisionedEmployeeOnWrongDate()
+        {
+            // Arrange
+            var employeeId = 1;
+            var commisionRate = 0.25;
+            var salary = 2400;
+            new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
+
+            var payPeriodDate = DateTime.Parse("2018-02-13");
+            var salesAmount = 200;
+            new SalesReceiptTransaction(employeeId, payPeriodDate, salesAmount).Execute();
+
+            var thursdayDate = DateTime.Parse("2018-02-15");
+            var paydayTransaction = new PaydayTransaction(thursdayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+
+            // Assert
+            Assert.IsNull(paycheck);
         }
 
         [TestMethod]

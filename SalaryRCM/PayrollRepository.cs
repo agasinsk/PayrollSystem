@@ -1,18 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using PayrollSystem.Models;
 
 namespace PayrollSystem
 {
-    public class PayrollDatabase
+    public class PayrollRepository : IPayrollRepository
     {
-        private static PayrollDatabase theInstance;
+        private static PayrollRepository theInstance;
         private readonly IDictionary<int, Employee> employees = new Dictionary<int, Employee>();
         private readonly IDictionary<int, Employee> unionMembers = new Dictionary<int, Employee>();
 
-        public static PayrollDatabase GetInstance()
+        public static PayrollRepository GetInstance()
         {
-            return theInstance ?? (theInstance = new PayrollDatabase());
+            return theInstance ?? (theInstance = new PayrollRepository());
         }
 
         public void AddEmployee(int employeeId, Employee employee)

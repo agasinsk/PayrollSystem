@@ -1,4 +1,4 @@
-using PayrollSystem.Models;
+using PayrollSystem.Models.Affiliation;
 
 namespace PayrollSystem.Transactions.Employee.Changes.Affiliation
 {
@@ -8,17 +8,17 @@ namespace PayrollSystem.Transactions.Employee.Changes.Affiliation
         {
         }
 
-        protected override Models.Affiliation GetAffiliation()
+        protected override EmployeeAffiliation GetAffiliation()
         {
-            return new NoAffiliation();
+            return new NoEmployeeAffiliation();
         }
 
         protected override void RecordAffiliation(Models.Employee employee)
         {
-            if (employee.Affiliation is UnionAffiliation)
+            if (employee.Affiliation is UnionEmployeeAffiliation)
             {
-                var memberId = (employee.Affiliation as UnionAffiliation).MemberId;
-                payrollDatabase.DeleteUnionMember(memberId);
+                var memberId = (employee.Affiliation as UnionEmployeeAffiliation).MemberId;
+                payrollRepository.DeleteUnionMember(memberId);
             }
         }
     }

@@ -1,7 +1,5 @@
 ﻿using System;
-using PayrollSystem.Models.PaymentClassifications;
-using PayrollSystem.Models.PaymentMethods;
-using PayrollSystem.Models.PaymentSchedules;
+using PayrollSystem.Models.Affiliation;
 
 namespace PayrollSystem.Models
 {
@@ -9,24 +7,24 @@ namespace PayrollSystem.Models
     {
         public string Address { get; set; }
 
-        public Affiliation Affiliation { get; set; }
+        public EmployeeAffiliation Affiliation { get; set; }
 
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public PaymentClassification PaymentClassification { get; set; }
+        public PaymentClassification.PaymentClassification PaymentClassification { get; set; }
 
-        public PaymentMethod PaymentMethod { get; set; }
+        public PaymentMethod.PaymentMethod PaymentMethod { get; set; }
 
-        public PaymentSchedule PaymentSchedule { get; set; }
+        public PaymentSchedule.PaymentSchedule PaymentSchedule { get; set; }
 
         public Employee(int id, string name, string address)
         {
             Id = id;
             Name = name;
             Address = address;
-            Affiliation = new NoAffiliation();
+            Affiliation = new NoEmployeeAffiliation();
         }
 
         public DateTime GetPayPeriodStartDate(DateTime date)

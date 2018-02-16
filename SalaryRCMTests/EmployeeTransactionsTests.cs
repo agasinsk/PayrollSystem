@@ -1,9 +1,9 @@
 using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
-using PayrollSystem.Models.PaymentClassifications;
-using PayrollSystem.Models.PaymentMethods;
-using PayrollSystem.Models.PaymentSchedules;
+using PayrollSystem.Models.PaymentClassification;
+using PayrollSystem.Models.PaymentMethod;
+using PayrollSystem.Models.PaymentSchedule;
 using PayrollSystem.Transactions.Employee;
 
 namespace PayrollSystemTests
@@ -11,12 +11,12 @@ namespace PayrollSystemTests
     [TestClass]
     public class EmployeeTransactionsTests
     {
-        private PayrollDatabase payrollDatabase;
+        private IPayrollRepository payrollRepository;
 
         [TestInitialize]
         public void SetUp()
         {
-            payrollDatabase = PayrollDatabase.GetInstance();
+            payrollRepository = PayrollRepository.GetInstance();
         }
 
         [TestMethod]
@@ -32,7 +32,7 @@ namespace PayrollSystemTests
             // Act
             new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, commisionRate).Execute();
 
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsTrue(employee.PaymentClassification is CommisionedPaymentClassification);
@@ -54,7 +54,7 @@ namespace PayrollSystemTests
             // Act
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
 
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsTrue(employee.PaymentClassification is HourlyPaymentClassification);
@@ -75,7 +75,7 @@ namespace PayrollSystemTests
             // Act
             new AddSalariedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary).Execute();
 
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsTrue(employee.PaymentClassification is SalariedPaymentClassification);
@@ -97,10 +97,10 @@ namespace PayrollSystemTests
             // Act
             new AddCommisionedEmployeeTransaction(employeeId, employeeName, employeeAddress, salary, commisionRate).Execute();
 
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             new DeleteEmployeeTransaction(employeeId).Execute();
-            var deletedEmployee = payrollDatabase.GetEmployee(employeeId);
+            var deletedEmployee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);

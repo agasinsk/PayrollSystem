@@ -2,7 +2,8 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
 using PayrollSystem.Models;
-using PayrollSystem.Models.PaymentClassifications;
+using PayrollSystem.Models.Affiliation;
+using PayrollSystem.Models.PaymentClassification;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Payroll;
 
@@ -11,12 +12,12 @@ namespace PayrollSystemTests
     [TestClass]
     public class PayrollTransactionsTests
     {
-        private PayrollDatabase payrollDatabase;
+        private PayrollRepository payrollRepository;
 
         [TestInitialize]
         public void SetUp()
         {
-            payrollDatabase = PayrollDatabase.GetInstance();
+            payrollRepository = PayrollRepository.GetInstance();
         }
 
         [TestMethod]
@@ -29,14 +30,14 @@ namespace PayrollSystemTests
             var hourlyRate = 25;
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             var dues = 12.5;
             var memberId = 86;
-            var unionAffiliation = new UnionAffiliation(memberId, dues);
+            var unionAffiliation = new UnionEmployeeAffiliation(memberId, dues);
             employee.Affiliation = unionAffiliation;
 
-            payrollDatabase.AddUnionMember(memberId, employee);
+            payrollRepository.AddUnionMember(memberId, employee);
 
             var date = DateTime.Parse("2001-10-31");
             var amount = 12.76;
@@ -68,7 +69,7 @@ namespace PayrollSystemTests
 
             // Act
             new SalesReceiptTransaction(employeeId, date, amount).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
             var salesReceipt = (employee.PaymentClassification as CommisionedPaymentClassification)?.GetSalesReceipt(date);
 
             // Assert
@@ -94,7 +95,7 @@ namespace PayrollSystemTests
             // Act
 
             new TimeCardTransaction(employeeId, date, hours).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
             var timeCard = (employee.PaymentClassification as HourlyPaymentClassification)?.GetTimeCard(date);
 
             // Assert

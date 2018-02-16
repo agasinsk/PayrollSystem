@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using PayrollSystem.Extensions;
 
-namespace PayrollSystem.Models.PaymentClassifications
+namespace PayrollSystem.Models.PaymentClassification
 {
     public class CommisionedPaymentClassification : PaymentClassification
     {

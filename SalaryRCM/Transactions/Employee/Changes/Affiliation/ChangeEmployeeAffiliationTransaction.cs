@@ -1,4 +1,6 @@
-﻿namespace PayrollSystem.Transactions.Employee.Changes.Affiliation
+﻿using PayrollSystem.Models.Affiliation;
+
+namespace PayrollSystem.Transactions.Employee.Changes.Affiliation
 {
     public abstract class ChangeEmployeeAffiliationTransaction : ChangeEmployeeTransaction
     {
@@ -12,7 +14,7 @@
             employee.Affiliation = GetAffiliation();
         }
 
-        protected abstract Models.Affiliation GetAffiliation();
+        protected abstract EmployeeAffiliation GetAffiliation();
 
         protected abstract void RecordAffiliation(Models.Employee employee);
     }

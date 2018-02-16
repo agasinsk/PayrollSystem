@@ -1,4 +1,4 @@
-﻿namespace PayrollSystem.Models.PaymentMethods
+﻿namespace PayrollSystem.Models.PaymentMethod
 {
     public enum PaymentMethodType
     {

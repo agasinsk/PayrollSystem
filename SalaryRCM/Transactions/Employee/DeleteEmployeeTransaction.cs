@@ -11,7 +11,7 @@
 
         public override void Execute()
         {
-            payrollDatabase.DeleteEmployee(employeeId);
+            payrollRepository.DeleteEmployee(employeeId);
         }
     }
 }

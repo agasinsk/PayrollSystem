@@ -1,9 +1,10 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
 using PayrollSystem.Models;
-using PayrollSystem.Models.PaymentClassifications;
-using PayrollSystem.Models.PaymentMethods;
-using PayrollSystem.Models.PaymentSchedules;
+using PayrollSystem.Models.Affiliation;
+using PayrollSystem.Models.PaymentClassification;
+using PayrollSystem.Models.PaymentMethod;
+using PayrollSystem.Models.PaymentSchedule;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Employee.Changes;
 using PayrollSystem.Transactions.Employee.Changes.Affiliation;
@@ -15,12 +16,12 @@ namespace PayrollSystemTests
     [TestClass]
     public class ChangeEmployeeTransactionsTests
     {
-        private PayrollDatabase payrollDatabase;
+        private IPayrollRepository payrollRepository;
 
         [TestInitialize]
         public void SetUp()
         {
-            payrollDatabase = PayrollDatabase.GetInstance();
+            payrollRepository = PayrollRepository.GetInstance();
         }
 
         [TestMethod]
@@ -38,7 +39,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeAddressTransaction(employeeId, newAddress).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -60,7 +61,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeCommisionedClassificationTransaction(employeeId, salary, commisionRate).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -85,7 +86,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeDirectMethodTransaction(employeeId, bank, account).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -107,7 +108,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeHoldMethodTransaction(employeeId, employeeAddress).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -129,7 +130,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeHourlyClassificationTransaction(employeeId, hourlyRate).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -151,7 +152,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeMailMethodTransaction(employeeId, employeeAddress).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -174,15 +175,15 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeUnionAffiliationTransaction(employeeId, memberId, dues).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
-            var unionMember = payrollDatabase.GetUnionMember(memberId);
+            var employee = payrollRepository.GetEmployee(employeeId);
+            var unionMember = payrollRepository.GetUnionMember(memberId);
 
             // Assert
             Assert.IsNotNull(employee);
             Assert.IsNotNull(unionMember);
             Assert.AreEqual(unionMember, employee);
-            Assert.IsTrue(employee.Affiliation is UnionAffiliation);
-            Assert.AreEqual(dues, (employee.Affiliation as UnionAffiliation).Dues);
+            Assert.IsTrue(employee.Affiliation is UnionEmployeeAffiliation);
+            Assert.AreEqual(dues, (employee.Affiliation as UnionEmployeeAffiliation).Dues);
         }
 
         [TestMethod]
@@ -200,7 +201,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeNameTransaction(employeeId, newName).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -221,7 +222,7 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeSalariedClassificationTransaction(employeeId, salary).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
@@ -243,11 +244,11 @@ namespace PayrollSystemTests
 
             // Act
             new ChangeEmployeeUnaffiliatedTransaction(employeeId).Execute();
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
 
             // Assert
             Assert.IsNotNull(employee);
-            Assert.IsTrue(employee.Affiliation is NoAffiliation);
+            Assert.IsTrue(employee.Affiliation is NoEmployeeAffiliation);
         }
     }
 }

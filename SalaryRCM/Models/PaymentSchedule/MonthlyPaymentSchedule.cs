@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrollSystem.Extensions;
 
-namespace PayrollSystem.Models.PaymentSchedules
+namespace PayrollSystem.Models.PaymentSchedule
 {
     public class MonthlyPaymentSchedule : PaymentSchedule
     {
@@ -12,12 +12,7 @@ namespace PayrollSystem.Models.PaymentSchedules
 
         public override bool IsPayDay(DateTime date)
         {
-            return IsLastDayOfMonth(date);
-        }
-
-        private bool IsLastDayOfMonth(DateTime date)
-        {
-            return DateTime.DaysInMonth(date.Year, date.Month) == date.Day;
+            return date.IsLastDayOfMonth();
         }
     }
 }

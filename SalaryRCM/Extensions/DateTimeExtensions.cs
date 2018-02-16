@@ -30,6 +30,24 @@ namespace PayrollSystem.Extensions
             return date >= startdate && date <= enddate;
         }
 
+        public static bool IsFriday(this DateTime date)
+        {
+            return date.DayOfWeek == DayOfWeek.Friday;
+        }
+
+        public static bool IsLastDayOfMonth(this DateTime date)
+        {
+            return DateTime.DaysInMonth(date.Year, date.Month) == date.Day;
+        }
+
+        public static bool IsSecondFriday(this DateTime date)
+        {
+            var daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+            var isInSecondWeek = (date.Day < 0.5 * daysInMonth && date.Day > 0.25 * daysInMonth);
+            var isInLastWeek = (date.Day > 0.5 * daysInMonth / 2 && date.Day > 0.75 * daysInMonth);
+            return IsFriday(date) && (isInLastWeek || isInSecondWeek);
+        }
+
         public static DateTime StartOfMonth(this DateTime date)
         {
             return new DateTime(date.Year, date.Month, 1);

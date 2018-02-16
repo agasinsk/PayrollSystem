@@ -1,6 +1,6 @@
 ﻿using System;
 using PayrollSystem.Models;
-using PayrollSystem.Models.PaymentClassifications;
+using PayrollSystem.Models.PaymentClassification;
 
 namespace PayrollSystem.Transactions.Payroll
 {
@@ -19,7 +19,7 @@ namespace PayrollSystem.Transactions.Payroll
 
         public override void Execute()
         {
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
             if (employee == null)
             {
                 throw new ApplicationException($"Employye of id {employeeId} cannot be found");

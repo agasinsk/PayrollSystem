@@ -2,7 +2,7 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
 using PayrollSystem.Extensions;
-using PayrollSystem.Models.PaymentMethods;
+using PayrollSystem.Models.PaymentMethod;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Employee.Changes.Affiliation;
 using PayrollSystem.Transactions.Payday;
@@ -13,12 +13,12 @@ namespace PayrollSystemTests
     [TestClass]
     public class PaydayTransactionsTests
     {
-        private PayrollDatabase payrollDatabase;
+        private IPayrollRepository payrollRepository;
 
         [TestInitialize]
         public void SetUp()
         {
-            payrollDatabase = PayrollDatabase.GetInstance();
+            payrollRepository = PayrollRepository.GetInstance();
         }
 
         [TestMethod]
@@ -135,7 +135,7 @@ namespace PayrollSystemTests
             var salary = 2400;
             new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
 
-            var fridayDate = DateTime.Parse("2018-02-16");
+            var fridayDate = DateTime.Parse("2018-02-9");
             var paydayTransaction = new PaydayTransaction(fridayDate);
 
             // Act
@@ -160,11 +160,11 @@ namespace PayrollSystemTests
             var salary = 2400;
             new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
 
-            var payPeriodDate = DateTime.Parse("2018-02-13");
+            var payPeriodDate = DateTime.Parse("2018-02-6");
             var salesAmount = 200;
             new SalesReceiptTransaction(employeeId, payPeriodDate, salesAmount).Execute();
 
-            var fridayDate = DateTime.Parse("2018-02-16");
+            var fridayDate = DateTime.Parse("2018-02-9");
             var paydayTransaction = new PaydayTransaction(fridayDate);
 
             // Act
@@ -214,15 +214,15 @@ namespace PayrollSystemTests
             var salary = 2400;
             new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
 
-            var payPeriodDate = DateTime.Parse("2018-02-13");
+            var payPeriodDate = DateTime.Parse("2018-02-7");
             var salesAmount = 200;
             new SalesReceiptTransaction(employeeId, payPeriodDate, salesAmount).Execute();
 
-            var payPeriodDate2 = DateTime.Parse("2018-02-12");
+            var payPeriodDate2 = DateTime.Parse("2018-02-6");
             var salesAmount1 = 150;
             new SalesReceiptTransaction(employeeId, payPeriodDate2, salesAmount1).Execute();
 
-            var fridayDate = DateTime.Parse("2018-02-16");
+            var fridayDate = DateTime.Parse("2018-02-9");
             var paydayTransaction = new PaydayTransaction(fridayDate);
 
             // Act
@@ -248,15 +248,15 @@ namespace PayrollSystemTests
             var salary = 2400;
             new AddCommisionedEmployeeTransaction(employeeId, "Adam", "Address", salary, commisionRate).Execute();
 
-            var date = DateTime.Parse("2018-02-13");
+            var date = DateTime.Parse("2018-02-4");
             var salesAmount = 200;
             new SalesReceiptTransaction(employeeId, date, salesAmount).Execute();
 
-            var lastPayPeriodDate = date.Subtract(TimeSpan.FromDays(14));
+            var lastPayPeriodDate = date - TimeSpan.FromDays(14);
             var salesAmount1 = 150;
             new SalesReceiptTransaction(employeeId, lastPayPeriodDate, salesAmount1).Execute();
 
-            var fridayDate = DateTime.Parse("2018-02-16");
+            var fridayDate = DateTime.Parse("2018-02-9");
             var paydayTransaction = new PaydayTransaction(fridayDate);
 
             // Act

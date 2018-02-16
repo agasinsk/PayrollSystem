@@ -1,6 +1,6 @@
-﻿using PayrollSystem.Models.PaymentClassifications;
-using PayrollSystem.Models.PaymentMethods;
-using PayrollSystem.Models.PaymentSchedules;
+﻿using PayrollSystem.Models.PaymentClassification;
+using PayrollSystem.Models.PaymentMethod;
+using PayrollSystem.Models.PaymentSchedule;
 
 namespace PayrollSystem.Transactions.Employee
 {
@@ -28,7 +28,7 @@ namespace PayrollSystem.Transactions.Employee
                 PaymentSchedule = paymentSchedule,
                 PaymentMethod = paymentMethod
             };
-            payrollDatabase.AddEmployee(employeeId, employee);
+            payrollRepository.AddEmployee(employeeId, employee);
         }
 
         protected abstract PaymentClassification GetPaymentClassification();

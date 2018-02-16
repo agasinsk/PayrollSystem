@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrollSystem.Models.PaymentSchedules
+namespace PayrollSystem.Models.PaymentSchedule
 {
     public abstract class PaymentSchedule
     {

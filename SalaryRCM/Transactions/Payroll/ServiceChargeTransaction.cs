@@ -1,5 +1,6 @@
 ﻿using System;
 using PayrollSystem.Models;
+using PayrollSystem.Models.Affiliation;
 
 namespace PayrollSystem.Transactions.Payroll
 {
@@ -18,19 +19,19 @@ namespace PayrollSystem.Transactions.Payroll
 
         public override void Execute()
         {
-            var employee = payrollDatabase.GetUnionMember(memberId);
+            var employee = payrollRepository.GetUnionMember(memberId);
             if (employee == null)
             {
                 throw new ApplicationException($"Union member of id { memberId } cannot be found!");
             }
 
             var affiliation = employee.Affiliation;
-            if (!(affiliation is UnionAffiliation))
+            if (!(affiliation is UnionEmployeeAffiliation))
             {
                 throw new ApplicationException($"Union member of id { memberId } does not have any affiliation!");
             }
             var serviceCharge = new ServiceCharge { Date = date, Amount = amount };
-            (affiliation as UnionAffiliation).AddServiceChange(serviceCharge);
+            (affiliation as UnionEmployeeAffiliation).AddServiceChange(serviceCharge);
         }
     }
 }

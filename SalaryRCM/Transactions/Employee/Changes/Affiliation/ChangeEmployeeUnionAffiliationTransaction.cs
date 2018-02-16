@@ -1,4 +1,4 @@
-using PayrollSystem.Models;
+using PayrollSystem.Models.Affiliation;
 
 namespace PayrollSystem.Transactions.Employee.Changes.Affiliation
 {
@@ -13,14 +13,14 @@ namespace PayrollSystem.Transactions.Employee.Changes.Affiliation
             this.memberId = memberId;
         }
 
-        protected override Models.Affiliation GetAffiliation()
+        protected override EmployeeAffiliation GetAffiliation()
         {
-            return new UnionAffiliation(memberId, dues);
+            return new UnionEmployeeAffiliation(memberId, dues);
         }
 
         protected override void RecordAffiliation(Models.Employee employee)
         {
-            payrollDatabase.AddUnionMember(memberId, employee);
+            payrollRepository.AddUnionMember(memberId, employee);
         }
     }
 }

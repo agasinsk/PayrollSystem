@@ -1,6 +1,5 @@
-﻿using PayrollSystem.Models.PaymentClassifications;
-using PayrollSystem.Models.PaymentMethods;
-using PayrollSystem.Models.PaymentSchedules;
+﻿using PayrollSystem.Models.PaymentClassification;
+using PayrollSystem.Models.PaymentSchedule;
 
 namespace PayrollSystem.Transactions.Employee.Changes.Classification
 {

@@ -13,7 +13,7 @@ namespace PayrollSystem.Transactions.Employee.Changes
 
         public override void Execute()
         {
-            var employee = payrollDatabase.GetEmployee(employeeId);
+            var employee = payrollRepository.GetEmployee(employeeId);
             if (employee == null)
             {
                 throw new ApplicationException($"Employee of id {employeeId} cannot be found");

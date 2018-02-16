@@ -17,7 +17,7 @@ namespace PayrollSystem.Transactions.Payday
 
         public override void Execute()
         {
-            foreach (var employee in payrollDatabase.GetAllEmployees())
+            foreach (var employee in payrollRepository.GetAllEmployees())
             {
                 if (employee.IsPayDay(date))
                 {

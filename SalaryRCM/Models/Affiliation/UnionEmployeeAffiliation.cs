@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using PayrollSystem.Extensions;
 
-namespace PayrollSystem.Models
+namespace PayrollSystem.Models.Affiliation
 {
-    public class UnionAffiliation : Affiliation
+    public class UnionEmployeeAffiliation : EmployeeAffiliation
     {
         private readonly List<ServiceCharge> serviceCharges;
         public double Dues { get; }
         public int MemberId { get; }
 
-        public UnionAffiliation(int memberId, double dues)
+        public UnionEmployeeAffiliation(int memberId, double dues)
         {
             Dues = dues;
             MemberId = memberId;

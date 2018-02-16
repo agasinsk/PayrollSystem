@@ -1,7 +1,7 @@
 ﻿using System;
 using PayrollSystem.Extensions;
 
-namespace PayrollSystem.Models.PaymentSchedules
+namespace PayrollSystem.Models.PaymentSchedule
 {
     public class WeeklyPaymentSchedule : PaymentSchedule
     {
@@ -12,12 +12,7 @@ namespace PayrollSystem.Models.PaymentSchedules
 
         public override bool IsPayDay(DateTime date)
         {
-            return IsLastDayOfWeek(date);
-        }
-
-        private bool IsLastDayOfWeek(DateTime date)
-        {
-            return date.DayOfWeek == DayOfWeek.Friday;
+            return date.IsFriday();
         }
     }
 }

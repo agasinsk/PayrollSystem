@@ -1,4 +1,4 @@
-using PayrollSystem.Models.PaymentMethods;
+using PayrollSystem.Models.PaymentMethod;
 
 namespace PayrollSystem.Transactions.Employee.Changes.Method
 {

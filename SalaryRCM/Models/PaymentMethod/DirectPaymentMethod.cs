@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace PayrollSystem.Models.PaymentMethods
+namespace PayrollSystem.Models.PaymentMethod
 {
     public class DirectPaymentMethod : PaymentMethod
     {

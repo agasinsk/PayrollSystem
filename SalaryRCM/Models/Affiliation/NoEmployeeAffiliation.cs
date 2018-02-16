@@ -1,8 +1,6 @@
-﻿using System;
-
-namespace PayrollSystem.Models
+﻿namespace PayrollSystem.Models.Affiliation
 {
-    public class NoAffiliation : Affiliation
+    public class NoEmployeeAffiliation : EmployeeAffiliation
     {
         public override double CalculateDeductions(Paycheck paycheck)
         {

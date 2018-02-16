@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace PayrollSystem.Models.PaymentClassifications
+﻿namespace PayrollSystem.Models.PaymentClassification
 {
     public class SalariedPaymentClassification : PaymentClassification
     {

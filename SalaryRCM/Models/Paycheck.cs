@@ -1,5 +1,5 @@
 ﻿using System;
-using PayrollSystem.Models.PaymentMethods;
+using PayrollSystem.Models.PaymentMethod;
 
 namespace PayrollSystem.Models
 {

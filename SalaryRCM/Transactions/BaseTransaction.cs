@@ -2,11 +2,11 @@
 {
     public abstract class BaseTransaction : ITransaction
     {
-        protected PayrollDatabase payrollDatabase;
+        protected IPayrollRepository payrollRepository;
 
         protected BaseTransaction()
         {
-            payrollDatabase = PayrollDatabase.GetInstance();
+            payrollRepository = PayrollRepository.GetInstance();
         }
 
         public abstract void Execute();

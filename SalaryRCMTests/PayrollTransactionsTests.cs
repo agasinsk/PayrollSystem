@@ -3,7 +3,6 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
 using PayrollSystem.Models;
 using PayrollSystem.Models.PaymentClassifications;
-using PayrollSystem.Models.PaymentMethods;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Payroll;
 
@@ -40,7 +39,7 @@ namespace PayrollSystemTests
             payrollDatabase.AddUnionMember(memberId, employee);
 
             var date = DateTime.Parse("2001-10-31");
-            var amount = 12.76M;
+            var amount = 12.76;
 
             // Act
             new ServiceChargeTransaction(memberId, date, amount).Execute();

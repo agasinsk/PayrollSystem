@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
+using PayrollSystem.Extensions;
 using PayrollSystem.Models.PaymentMethods;
 using PayrollSystem.Transactions.Employee;
 using PayrollSystem.Transactions.Employee.Changes.Affiliation;
@@ -21,6 +22,40 @@ namespace PayrollSystemTests
         }
 
         [TestMethod]
+        public void TestPayHourlyUnionMemberServiceCharge()
+        {
+            // Arrange
+            var employeeId = 1;
+            var hourlyRate = 24;
+            new AddHourlyEmployeeTransaction(employeeId, "Adam", "Address", hourlyRate).Execute();
+
+            var commisionRate = 9.25;
+            var unionMemberId = 252;
+            new ChangeEmployeeUnionAffiliationTransaction(employeeId, unionMemberId, commisionRate).Execute();
+
+            var fridayDate = new DateTime(2018, 02, 16);
+            var serviceChargeAmount = 11;
+            new ServiceChargeTransaction(unionMemberId, fridayDate, serviceChargeAmount).Execute();
+
+            var hours = 8;
+            new TimeCardTransaction(employeeId, fridayDate, hours).Execute();
+            var paydayTransaction = new PaydayTransaction(fridayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+            var expectedPay = hours * hourlyRate;
+
+            // Assert
+            Assert.IsNotNull(paycheck);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
+            Assert.AreEqual(expectedPay, paycheck.GrossPay);
+            Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
+            Assert.AreEqual(commisionRate + serviceChargeAmount, paycheck.Deductions);
+            Assert.AreEqual(expectedPay - commisionRate - serviceChargeAmount, paycheck.NetPay);
+        }
+
+        [TestMethod]
         public void TestPaySalariedUnionMemberDues()
         {
             // Arrange
@@ -38,14 +73,57 @@ namespace PayrollSystemTests
             // Act
             paydayTransaction.Execute();
             var paycheck = paydayTransaction.GetPaycheck(employeeId);
+            var expectedDeductions = 4 * commisionRate;
 
             // Assert
             Assert.IsNotNull(paycheck);
             Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(salary, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
-            Assert.AreEqual(0, paycheck.Deductions);
-            Assert.AreEqual(salary, paycheck.NetPay);
+            Assert.AreEqual(expectedDeductions, paycheck.Deductions);
+            Assert.AreEqual(salary - expectedDeductions, paycheck.NetPay);
+        }
+
+        [TestMethod]
+        public void TestPayServiceChargesSpanningMultiplePayPeriods()
+        {
+            // Arrange
+            var employeeId = 1;
+            var hourlyRate = 24;
+            new AddHourlyEmployeeTransaction(employeeId, "Adam", "Address", hourlyRate).Execute();
+
+            var commisionRate = 9.25;
+            var unionMemberId = 252;
+            new ChangeEmployeeUnionAffiliationTransaction(employeeId, unionMemberId, commisionRate).Execute();
+
+            var serviceChargeAmount = 11;
+            var fridayDate = new DateTime(2018, 02, 16);
+            new ServiceChargeTransaction(unionMemberId, fridayDate, serviceChargeAmount).Execute();
+
+            var earlierFridayDay = fridayDate - TimeSpan.FromDays(7);
+            var serviceChargeAmount1 = 100;
+            new ServiceChargeTransaction(unionMemberId, earlierFridayDay, serviceChargeAmount1).Execute();
+
+            var nextFridayDay = fridayDate + TimeSpan.FromDays(7);
+            var serviceChargeAmount2 = 100;
+            new ServiceChargeTransaction(unionMemberId, nextFridayDay, serviceChargeAmount2).Execute();
+
+            var hours = 8;
+            new TimeCardTransaction(employeeId, fridayDate, hours).Execute();
+            var paydayTransaction = new PaydayTransaction(fridayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+            var expectedPay = hours * hourlyRate;
+
+            // Assert
+            Assert.IsNotNull(paycheck);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
+            Assert.AreEqual(expectedPay, paycheck.GrossPay);
+            Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
+            Assert.AreEqual(commisionRate + serviceChargeAmount, paycheck.Deductions);
+            Assert.AreEqual(expectedPay - commisionRate - serviceChargeAmount, paycheck.NetPay);
         }
 
         [TestMethod]

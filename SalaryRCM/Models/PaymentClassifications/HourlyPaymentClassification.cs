@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PayrollSystem.Extensions;
 
 namespace PayrollSystem.Models.PaymentClassifications
 {
@@ -25,7 +26,7 @@ namespace PayrollSystem.Models.PaymentClassifications
 
         public override double CalculatePay(Paycheck paycheck)
         {
-            var hours = timeCards.Where(tc => IsInPayPeriod(tc.Date, paycheck)).Sum(tc => tc.Hours);
+            var hours = timeCards.Where(tc => tc.Date.IsBetween(paycheck.StartDate, paycheck.EndDate)).Sum(tc => tc.Hours);
             var overTimeHours = GetOverTimeHours(hours);
             hours = hours - overTimeHours;
 

@@ -5,11 +5,11 @@ namespace PayrollSystem.Transactions.Payroll
 {
     public class ServiceChargeTransaction : BaseTransaction
     {
-        private readonly decimal amount;
+        private readonly double amount;
         private readonly DateTime date;
         private readonly int memberId;
 
-        public ServiceChargeTransaction(int memberId, DateTime date, decimal amount)
+        public ServiceChargeTransaction(int memberId, DateTime date, double amount)
         {
             this.memberId = memberId;
             this.date = date;

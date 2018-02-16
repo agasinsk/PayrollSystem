@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using PayrollSystem.Extensions;
 
 namespace PayrollSystem.Models
 {
@@ -23,12 +25,21 @@ namespace PayrollSystem.Models
 
         public override double CalculateDeductions(Paycheck paycheck)
         {
-            throw new NotImplementedException();
+            var fridaysInMonth = GetFridaysCountInPayPeriod(paycheck.StartDate, paycheck.EndDate);
+            var totalDues = Dues * fridaysInMonth;
+            var charges = serviceCharges.Where(sc => sc.Date.IsBetween(paycheck.StartDate, paycheck.EndDate))
+                .Sum(sc => sc.Amount);
+            return totalDues + charges;
         }
 
         public ServiceCharge GetServiceCharge(DateTime date)
         {
             return serviceCharges.Find(sc => sc.Date == date);
+        }
+
+        private int GetFridaysCountInPayPeriod(DateTime startDate, DateTime endDate)
+        {
+            return DateTimeExtensions.CountDays(DayOfWeek.Friday, startDate, endDate);
         }
     }
 }

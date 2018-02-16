@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using PayrollSystem.Extensions;
 
 namespace PayrollSystem.Models.PaymentClassifications
 {
@@ -24,7 +25,7 @@ namespace PayrollSystem.Models.PaymentClassifications
 
         public override double CalculatePay(Paycheck paycheck)
         {
-            var salesAmount = salesReceipts.Where(sr => IsInPayPeriod(sr.Date, paycheck)).Sum(sr => sr.Amount);
+            var salesAmount = salesReceipts.Where(sr => sr.Date.IsBetween(paycheck.StartDate, paycheck.EndDate)).Sum(sr => sr.Amount);
             return Salary + salesAmount * CommisionRate;
         }
 

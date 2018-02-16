@@ -32,7 +32,7 @@ namespace PayrollSystemTests
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
             var employee = payrollDatabase.GetEmployee(employeeId);
 
-            var dues = 12.5M;
+            var dues = 12.5;
             var memberId = 86;
             var unionAffiliation = new UnionAffiliation(memberId, dues);
             employee.Affiliation = unionAffiliation;

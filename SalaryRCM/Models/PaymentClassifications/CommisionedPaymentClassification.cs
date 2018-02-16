@@ -22,22 +22,15 @@ namespace PayrollSystem.Models.PaymentClassifications
             salesReceipts.Add(salesReceipt);
         }
 
-        public override double CalculatePay(DateTime paycheckDate)
+        public override double CalculatePay(Paycheck paycheck)
         {
-            var salesAmount = salesReceipts.Where(sr => IsSalesReceiptInPayPeriod(sr, paycheckDate)).Sum(sr => sr.Amount);
+            var salesAmount = salesReceipts.Where(sr => IsInPayPeriod(sr.Date, paycheck)).Sum(sr => sr.Amount);
             return Salary + salesAmount * CommisionRate;
         }
 
         public SalesReceipt GetSalesReceipt(DateTime date)
         {
             return salesReceipts.Find(sr => sr.Date == date);
-        }
-
-        private bool IsSalesReceiptInPayPeriod(SalesReceipt sr, DateTime paycheckDate)
-        {
-            var payPeriodStart = paycheckDate.Subtract(TimeSpan.FromDays(12));
-
-            return sr.Date <= paycheckDate && sr.Date >= payPeriodStart;
         }
     }
 }

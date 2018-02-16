@@ -5,19 +5,17 @@ namespace PayrollSystem.Models
 {
     public class Paycheck
     {
-        public DateTime Date { get; set; }
-
         public double Deductions { get; set; }
-
         public PaymentMethodType Disposition { get; set; }
-
+        public DateTime EndDate { get; set; }
         public double GrossPay { get; set; }
-
         public double NetPay => GrossPay - Deductions;
+        public DateTime StartDate { get; set; }
 
-        public Paycheck(DateTime date)
+        public Paycheck(DateTime startDate, DateTime endDate)
         {
-            Date = date;
+            StartDate = startDate;
+            EndDate = endDate;
         }
 
         public override string ToString()

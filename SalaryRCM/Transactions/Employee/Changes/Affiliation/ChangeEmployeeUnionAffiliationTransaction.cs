@@ -4,10 +4,10 @@ namespace PayrollSystem.Transactions.Employee.Changes.Affiliation
 {
     public class ChangeEmployeeUnionAffiliationTransaction : ChangeEmployeeAffiliationTransaction
     {
-        private readonly decimal dues;
+        private readonly double dues;
         private readonly int memberId;
 
-        public ChangeEmployeeUnionAffiliationTransaction(int employeeId, int memberId, decimal dues) : base(employeeId)
+        public ChangeEmployeeUnionAffiliationTransaction(int employeeId, int memberId, double dues) : base(employeeId)
         {
             this.dues = dues;
             this.memberId = memberId;

@@ -29,6 +29,11 @@ namespace PayrollSystem.Models
             Affiliation = new NoAffiliation();
         }
 
+        public DateTime GetPayPeriodStartDate(DateTime date)
+        {
+            return PaymentSchedule.GetPayPeriodStartDate(date);
+        }
+
         public bool IsPayDay(DateTime date)
         {
             return PaymentSchedule.IsPayDay(date);
@@ -36,8 +41,8 @@ namespace PayrollSystem.Models
 
         public void PayDay(Paycheck paycheck)
         {
-            paycheck.GrossPay = PaymentClassification.CalculatePay(paycheck.Date);
-            paycheck.Deductions = Affiliation.CalculatePay(paycheck.Date);
+            paycheck.GrossPay = PaymentClassification.CalculatePay(paycheck);
+            paycheck.Deductions = Affiliation.CalculateDeductions(paycheck);
 
             PaymentMethod.Pay(paycheck);
         }

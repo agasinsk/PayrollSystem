@@ -3,6 +3,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using PayrollSystem;
 using PayrollSystem.Models.PaymentMethods;
 using PayrollSystem.Transactions.Employee;
+using PayrollSystem.Transactions.Employee.Changes.Affiliation;
 using PayrollSystem.Transactions.Payday;
 using PayrollSystem.Transactions.Payroll;
 
@@ -17,6 +18,34 @@ namespace PayrollSystemTests
         public void SetUp()
         {
             payrollDatabase = PayrollDatabase.GetInstance();
+        }
+
+        [TestMethod]
+        public void TestPaySalariedUnionMemberDues()
+        {
+            // Arrange
+            var employeeId = 1;
+            var salary = 2400;
+            new AddSalariedEmployeeTransaction(employeeId, "Adam", "Address", salary).Execute();
+
+            var commisionRate = 9.25;
+            var unionMemberId = 22;
+            new ChangeEmployeeUnionAffiliationTransaction(employeeId, unionMemberId, commisionRate).Execute();
+
+            var fridayDate = new DateTime(2011, 1, 31);
+            var paydayTransaction = new PaydayTransaction(fridayDate);
+
+            // Act
+            paydayTransaction.Execute();
+            var paycheck = paydayTransaction.GetPaycheck(employeeId);
+
+            // Assert
+            Assert.IsNotNull(paycheck);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
+            Assert.AreEqual(salary, paycheck.GrossPay);
+            Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
+            Assert.AreEqual(0, paycheck.Deductions);
+            Assert.AreEqual(salary, paycheck.NetPay);
         }
 
         [TestMethod]
@@ -37,7 +66,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(salary, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -67,7 +96,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(expectedPay, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -125,7 +154,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(expectedPay, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -159,7 +188,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(expectedPay, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -183,7 +212,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(0, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -211,7 +240,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(expectedPay, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -263,7 +292,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(expectedPay, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -293,7 +322,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(expectedPay, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);
@@ -323,7 +352,7 @@ namespace PayrollSystemTests
 
             // Assert
             Assert.IsNotNull(paycheck);
-            Assert.AreEqual(fridayDate, paycheck.Date);
+            Assert.AreEqual(fridayDate, paycheck.EndDate);
             Assert.AreEqual(expectedPay, paycheck.GrossPay);
             Assert.AreEqual(PaymentMethodType.Hold, paycheck.Disposition);
             Assert.AreEqual(0, paycheck.Deductions);

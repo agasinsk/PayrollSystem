@@ -4,6 +4,6 @@ namespace PayrollSystem.Models
 {
     public abstract class Affiliation
     {
-        public abstract double CalculatePay(DateTime paycheckDate);
+        public abstract double CalculateDeductions(Paycheck paycheck);
     }
 }

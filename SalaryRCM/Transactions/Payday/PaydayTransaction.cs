@@ -21,7 +21,7 @@ namespace PayrollSystem.Transactions.Payday
             {
                 if (employee.IsPayDay(date))
                 {
-                    var paycheck = new Paycheck(date);
+                    var paycheck = new Paycheck(employee.GetPayPeriodStartDate(date), date);
                     paychecks[employee.Id] = paycheck;
                     employee.PayDay(paycheck);
                 }

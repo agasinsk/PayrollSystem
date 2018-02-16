@@ -6,10 +6,10 @@ namespace PayrollSystem.Models
     public class UnionAffiliation : Affiliation
     {
         private readonly List<ServiceCharge> serviceCharges;
-        public decimal Dues { get; }
+        public double Dues { get; }
         public int MemberId { get; }
 
-        public UnionAffiliation(int memberId, decimal dues)
+        public UnionAffiliation(int memberId, double dues)
         {
             Dues = dues;
             MemberId = memberId;
@@ -21,7 +21,7 @@ namespace PayrollSystem.Models
             serviceCharges.Add(serviceCharge);
         }
 
-        public override double CalculatePay(DateTime paycheckDate)
+        public override double CalculateDeductions(Paycheck paycheck)
         {
             throw new NotImplementedException();
         }

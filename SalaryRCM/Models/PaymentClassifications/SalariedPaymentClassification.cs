@@ -11,7 +11,7 @@ namespace PayrollSystem.Models.PaymentClassifications
             Salary = salary;
         }
 
-        public override double CalculatePay(DateTime paycheckDate)
+        public override double CalculatePay(Paycheck paycheck)
         {
             return Salary;
         }

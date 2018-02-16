@@ -1,9 +1,15 @@
 ﻿using System;
+using PayrollSystem.Extensions;
 
 namespace PayrollSystem.Models.PaymentSchedules
 {
     public class BiweeklyPaymentSchedule : PaymentSchedule
     {
+        public override DateTime GetPayPeriodStartDate(DateTime date)
+        {
+            return date.StartOfWeek();
+        }
+
         public override bool IsPayDay(DateTime date)
         {
             return IsLastDayOfCycle(date);

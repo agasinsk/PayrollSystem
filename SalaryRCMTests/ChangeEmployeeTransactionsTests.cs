@@ -170,7 +170,7 @@ namespace PayrollSystemTests
 
             new AddHourlyEmployeeTransaction(employeeId, employeeName, employeeAddress, hourlyRate).Execute();
             var memberId = 24;
-            var dues = 92.42M;
+            var dues = 92.42;
 
             // Act
             new ChangeEmployeeUnionAffiliationTransaction(employeeId, memberId, dues).Execute();

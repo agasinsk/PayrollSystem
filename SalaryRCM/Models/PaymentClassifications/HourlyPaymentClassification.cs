@@ -23,9 +23,9 @@ namespace PayrollSystem.Models.PaymentClassifications
             timeCards.Add(timeCard);
         }
 
-        public override double CalculatePay(DateTime paycheckDate)
+        public override double CalculatePay(Paycheck paycheck)
         {
-            var hours = timeCards.Where(tc => IsTimeCardInPayPeriod(tc, paycheckDate)).Sum(tc => tc.Hours);
+            var hours = timeCards.Where(tc => IsInPayPeriod(tc.Date, paycheck)).Sum(tc => tc.Hours);
             var overTimeHours = GetOverTimeHours(hours);
             hours = hours - overTimeHours;
 
@@ -42,13 +42,6 @@ namespace PayrollSystem.Models.PaymentClassifications
         private static double GetOverTimeHours(double hours)
         {
             return hours >= StandardHoursPerDay ? hours % StandardHoursPerDay : 0;
-        }
-
-        private bool IsTimeCardInPayPeriod(TimeCard tc, DateTime paycheckDate)
-        {
-            var payPeriodStart = paycheckDate.Subtract(TimeSpan.FromDays(5));
-
-            return tc.Date <= paycheckDate && tc.Date >= payPeriodStart;
         }
     }
 }
